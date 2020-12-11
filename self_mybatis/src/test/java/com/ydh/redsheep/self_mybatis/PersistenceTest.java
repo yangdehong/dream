@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @SpringBootTest
-public class IPersistenceTest {
+public class PersistenceTest {
 
     @Test
     public void test() throws Exception {
@@ -21,19 +21,6 @@ public class IPersistenceTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsSteam);
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
-        //调用
-        User userPO = new User();
-        userPO.setId(1L);
-        userPO.setUsername("张三");
-      /*  User user2 = sqlSession.selectOne("user.selectOne", user);
-
-        System.out.println(user2);*/
-
-       /* List<User> users = sqlSession.selectList("user.selectList");
-        for (User user1 : users) {
-            System.out.println(user1);
-        }*/
-
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
         List<User> all = userMapper.findAll();
@@ -41,9 +28,14 @@ public class IPersistenceTest {
             System.out.println(user);
         }
 
+        System.out.println("===========");
+
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("测试");
+        User user1 = userMapper.findByCondition(user);
+        System.out.println(user1);
 
     }
-
-
 
 }

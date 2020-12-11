@@ -34,7 +34,7 @@ public class XMLMapperBuilder {
             MappedStatement mappedStatement = new MappedStatement();
             mappedStatement.setId(id);
             mappedStatement.setResultType(resultType);
-            mappedStatement.setParamterType(paramterType);
+            mappedStatement.setParameterType(paramterType);
             mappedStatement.setSql(sqlText);
             String key = namespace+"."+id;
             configuration.getMappedStatementMap().put(key,mappedStatement);
