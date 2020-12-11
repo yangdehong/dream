@@ -1,0 +1,14 @@
+<configuration>
+
+        <!--数据库配置信息-->
+    <dataSource>
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://rm-bp14m38byen9x1gs3mo.mysql.rds.aliyuncs.com:3306/ydh_test?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;useSSL=false&amp;allowMultiQueries=true&amp;rewriteBatchedStatements=true&amp;serverTimezone=GMT%2B8"></property>
+        <property name="username" value="ai_call_engine"></property>
+        <property name="password" value="#Daily_ai_call_engine"></property>
+    </dataSource>
+
+    <!--存放mapper.xml的全路径-->
+    <mapper resource="UserMapper.xml"></mapper>
+
+</configuration>
