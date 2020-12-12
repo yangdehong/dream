@@ -59,7 +59,7 @@ class QuickStartTests {
     }
 
     @Test
-    public void test2() throws IOException {
+    public void test2()  {
 
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         List<User> all = userMapper.findAll();
