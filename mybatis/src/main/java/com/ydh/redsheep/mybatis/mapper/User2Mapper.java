@@ -45,7 +45,7 @@ public interface User2Mapper {
     List<User> findAllUserAndRole();
 
     //根据id查询用户
-    @Options(useCache = true)
+//    @Options(useCache = true)
     @Select({"select * from user where id = #{id}"})
     User findUserById(Integer id);
 
