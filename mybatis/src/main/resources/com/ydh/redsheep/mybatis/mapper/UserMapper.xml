@@ -59,8 +59,35 @@
 
     </select>
 
+    <resultMap id="userMap" type="com.ydh.redsheep.mybatis.pojo.User">
+        <result column="id" property="id"></result>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+        <result column="birthday" property="birthday"></result>
+        <collection property="orderList" ofType="com.ydh.redsheep.mybatis.pojo.Order">
+            <result column="oid" property="id"></result>
+            <result column="ordertime" property="orderTime"></result>
+            <result column="total" property="total"></result>
+        </collection>
+    </resultMap>
+    <select id="findAllUserAndOrder" resultMap="userMap">
+        select *,o.id oid from user u left join orders o on u.id=o.uid
+    </select>
 
+    <resultMap id="userRoleMap" type="com.ydh.redsheep.mybatis.pojo.User">
+        <result property="id" column="userid"></result>
+        <result property="username" column="username"></result>
+        <collection property="roleList" ofType="com.ydh.redsheep.mybatis.pojo.Role">
+            <result property="id" column="roleid"></result>
+            <result property="roleName" column="roleName"></result>
+            <result property="roleDesc" column="roleDesc"></result>
+        </collection>
+    </resultMap>
 
+    <select id="findAllUserAndRole" resultMap="userRoleMap">
+        select * from user u left join sys_user_role ur on u.id = ur.userid
+                             left join sys_role r on r.id = ur.roleid
+    </select>
     
     
 </mapper>

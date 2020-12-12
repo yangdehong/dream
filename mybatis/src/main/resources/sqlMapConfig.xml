@@ -30,7 +30,7 @@
 
     <!--引入映射配置文件-->
     <mappers>
-        <mapper resource="UserMapper.xml"></mapper>
+        <package name="com.ydh.redsheep.mybatis.mapper"/>
     </mappers>
 
 
