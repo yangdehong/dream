@@ -58,5 +58,38 @@ class CacheTests {
         System.out.println(u12==u22);
     }
 
+    @Test
+    public void testSecondLevelCache() throws Exception{
+        //1.Resources工具类，配置文件的加载，把配置文件加载成字节输入流
+        InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
+        //2.解析了配置文件，并创建了sqlSessionFactory工厂
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
+        SqlSession sqlSession1 = sqlSessionFactory.openSession();
+        SqlSession sqlSession2 = sqlSessionFactory.openSession();
+        SqlSession sqlSession3 = sqlSessionFactory.openSession();
+
+        User2Mapper mapper1 = sqlSession1.getMapper(User2Mapper.class);
+        User2Mapper mapper2 = sqlSession2.getMapper(User2Mapper.class);
+        User2Mapper mapper3 = sqlSession3.getMapper(User2Mapper.class);
+
+        System.out.println("第一次查询");
+        User user1 = mapper1.findUserById(1);
+        sqlSession1.close(); //清空一级缓存，不让一级缓存造成影响
+
+        // 清空之后就再次查询缓存就没有了
+//        User user = new User();
+//        user.setId(1);
+//        user.setUsername("lisi");
+//        mapper3.updateUser(user);
+//        sqlSession3.commit();
+
+        System.out.println("第二次查询");
+        User user2 = mapper2.findUserById(1);
+
+        System.out.println(user1==user2); // false
+
+
+    }
+
 
 }

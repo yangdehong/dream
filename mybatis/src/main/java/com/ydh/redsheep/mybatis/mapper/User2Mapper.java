@@ -2,10 +2,11 @@ package com.ydh.redsheep.mybatis.mapper;
 
 import com.ydh.redsheep.mybatis.pojo.User;
 import org.apache.ibatis.annotations.*;
+import org.mybatis.caches.redis.RedisCache;
 
 import java.util.List;
 
-//@CacheNamespace(implementation = RedisCache.class)//开启二级缓存
+@CacheNamespace(implementation = RedisCache.class) //开启二级缓存，使用redis
 public interface User2Mapper {
 
     //添加用户
@@ -45,7 +46,7 @@ public interface User2Mapper {
     List<User> findAllUserAndRole();
 
     //根据id查询用户
-//    @Options(useCache = true)
+//    @Options(useCache = true) // 可以去操作是否不使用二级缓存，是否在修改之后刷新二级缓存等等操作
     @Select({"select * from user where id = #{id}"})
     User findUserById(Integer id);
 
