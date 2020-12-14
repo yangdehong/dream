@@ -3,21 +3,26 @@ package com.ydh.redsheep.self_mybatis.sqlSession;
 
 import com.ydh.redsheep.self_mybatis.pojo.Configuration;
 import com.ydh.redsheep.self_mybatis.pojo.MappedStatement;
+import com.ydh.redsheep.self_mybatis.pojo.User;
+import com.ydh.redsheep.self_mybatis.pojo.myenum.SqlTypeEnum;
 
 import java.lang.reflect.*;
 import java.util.List;
+import java.util.Map;
 
 public class DefaultSqlSession implements SqlSession {
 
     private Configuration configuration;
+    private Map<String, MappedStatement> mappedStatementMap;
 
     public DefaultSqlSession(Configuration configuration) {
         this.configuration = configuration;
+        this.mappedStatementMap = configuration.getMappedStatementMap();
     }
 
     @Override
     public <E> List<E> selectList(String statementid, Object... params) throws Exception {
-        MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementid);
+        MappedStatement mappedStatement = mappedStatementMap.get(statementid);
         //将要去完成对simpleExecutor里的query方法的调用
         Executor executor = new SimpleExecutor();
         List<Object> list = executor.query(configuration, mappedStatement, params);
@@ -32,8 +37,27 @@ public class DefaultSqlSession implements SqlSession {
         }else {
             throw new RuntimeException("查询结果为空或者返回结果过多");
         }
+    }
 
+    @Override
+    public void insert(String statementid, Object... params) throws Exception {
+        MappedStatement mappedStatement = mappedStatementMap.get(statementid);
+        Executor executor = new SimpleExecutor();
+        executor.insert(configuration, mappedStatement, params);
+    }
 
+    @Override
+    public void update(String statementid, Object... params) throws Exception {
+        MappedStatement mappedStatement = mappedStatementMap.get(statementid);
+        Executor executor = new SimpleExecutor();
+        executor.update(configuration, mappedStatement, params);
+    }
+
+    @Override
+    public void delete(String statementid, Object... params) throws Exception {
+        MappedStatement mappedStatement = mappedStatementMap.get(statementid);
+        Executor executor = new SimpleExecutor();
+        executor.delete(configuration, mappedStatement, params);
     }
 
     @Override
@@ -48,25 +72,43 @@ public class DefaultSqlSession implements SqlSession {
                 // 方法名：findAll
                 String methodName = method.getName();
                 String className = method.getDeclaringClass().getName();
-
                 String statementId = className+"."+methodName;
-
-                // 准备参数2：params:args
-                // 获取被调用方法的返回值类型
-                Type genericReturnType = method.getGenericReturnType();
-                // 判断是否进行了 泛型类型参数化
-                if(genericReturnType instanceof ParameterizedType){
-                    List<Object> objects = selectList(statementId, args);
-                    return objects;
+                // 获取MappedStatement中的sqlTypeEnum
+                Map<String, MappedStatement> mappedStatementMap = configuration.getMappedStatementMap();
+                MappedStatement mappedStatement = mappedStatementMap.get(statementId);
+                if (mappedStatement == null) {
+                    return null;
                 }
-
-                return selectOne(statementId,args);
-
+                SqlTypeEnum sqlTypeEnum = mappedStatement.getSqlTypeEnum();
+                switch (sqlTypeEnum) {
+                    case SELECT:
+                        // 准备参数2：params:args
+                        // 获取被调用方法的返回值类型
+                        Type genericReturnType = method.getGenericReturnType();
+                        // 判断是否进行了 泛型类型参数化
+                        if(genericReturnType instanceof ParameterizedType){
+                            List<Object> objects = selectList(statementId, args);
+                            return objects;
+                        }
+                        return selectOne(statementId,args);
+                    case UPDATE:
+                        update(statementId, args);
+                        break;
+                    case INSERT:
+                        insert(statementId, args);
+                        break;
+                    case DELETE:
+                        delete(statementId, args);
+                        break;
+                }
+                return null;
             }
         });
 
         return (T) proxyInstance;
     }
+
+
 
 
 }

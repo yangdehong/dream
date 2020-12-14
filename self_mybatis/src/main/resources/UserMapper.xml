@@ -5,15 +5,24 @@
         select * from user
     </select>
 
-
     <!--
         User user = new User()
         user.setId(1);
         user.setUsername("zhangsan")
     -->
     <select id="findByCondition" resultType="com.ydh.redsheep.self_mybatis.pojo.User" paramterType="com.ydh.redsheep.self_mybatis.pojo.User">
-        select * from user where id = #{id} and username = #{username}
+        select * from user where id = #{id}
     </select>
+
+    <insert id="addUser" paramterType="com.ydh.redsheep.self_mybatis.pojo.User">
+        insert into user(username) values(#{username})
+    </insert>
+    <update id="updateUser" paramterType="com.ydh.redsheep.self_mybatis.pojo.User">
+        update user set username = #{username} where id = #{id}
+    </update>
+    <delete id="deleteUser" paramterType="com.ydh.redsheep.self_mybatis.pojo.User">
+        delete from user where id = #{id}
+    </delete>
 
 
 </mapper>
