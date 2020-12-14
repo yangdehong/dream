@@ -98,6 +98,10 @@
         <result column="username" property="username"></result>
         <result column="password" property="password"></result>
         <result column="birthday" property="birthday"></result>
+        <!--
+        fetchType="lazy" 懒加载策略
+        fetchType="eager" 立即加载策略
+        -->
         <collection property="orderList" ofType="com.ydh.redsheep.mybatis.pojo.Order"
                     column="id" select="com.ydh.redsheep.mybatis.mapper.OrderMapper.findOrderByUid">
         </collection>
