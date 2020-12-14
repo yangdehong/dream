@@ -7,9 +7,11 @@
     <!--加载外部的properties文件-->
     <properties resource="jdbc.properties"></properties>
 
-    <!--开启二级缓存  -->
     <settings>
+        <!--开启二级缓存  -->
         <setting name="cacheEnabled" value="true"/>
+        <!--开启全局延迟加载功能-->
+<!--        <setting name="lazyLoadingEnabled" value="true"/>-->
     </settings>
 
     <!--给实体类的全限定类名给别名-->
@@ -51,6 +53,7 @@
 
     <!--引入映射配置文件-->
     <mappers>
+<!--        <mapper resource="com/ydh/redsheep/mybatis/mapper/UserMapper.xml"/>-->
         <package name="com.ydh.redsheep.mybatis.mapper"/>
     </mappers>
 

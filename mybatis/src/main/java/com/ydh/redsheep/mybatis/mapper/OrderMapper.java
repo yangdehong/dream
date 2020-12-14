@@ -8,4 +8,6 @@ public interface OrderMapper {
 
     List<Order> findAll();
 
+    List<Order> findOrderByUid(Integer uid);
+
 }

@@ -89,6 +89,22 @@
         select * from user u left join sys_user_role ur on u.id = ur.userid
                              left join sys_role r on r.id = ur.roleid
     </select>
+    <select id="findUserById" resultType="user">
+        select * from user where id = #{id}
+    </select>
+
+    <resultMap id="userMap2" type="com.ydh.redsheep.mybatis.pojo.User">
+        <result column="id" property="id"></result>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+        <result column="birthday" property="birthday"></result>
+        <collection property="orderList" ofType="com.ydh.redsheep.mybatis.pojo.Order"
+                    column="id" select="com.ydh.redsheep.mybatis.mapper.OrderMapper.findOrderByUid">
+        </collection>
+    </resultMap>
+    <select id="findUserByIdLazy" resultMap="userMap2">
+        select * from user where id = #{id}
+    </select>
     
     
 </mapper>

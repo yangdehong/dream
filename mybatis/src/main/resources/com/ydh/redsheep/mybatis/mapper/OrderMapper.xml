@@ -20,6 +20,10 @@
         select * from orders o,user u where o.uid=u.id
     </select>
 
+    <select id="findOrderByUid" resultMap="orderMap">
+        select * from orders where uid = #{uid}
+    </select>
+
 
 
 </mapper>

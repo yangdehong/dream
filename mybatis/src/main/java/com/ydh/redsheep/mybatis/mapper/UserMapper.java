@@ -22,5 +22,9 @@ public interface UserMapper {
 
     List<User> findAllUserAndRole();
 
+    User findUserById(Integer id);
+
+    User findUserByIdLazy(Integer id);
+
 
 }
