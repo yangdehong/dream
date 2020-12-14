@@ -6,6 +6,7 @@
 <mapper namespace="com.ydh.redsheep.mybatis.mapper.UserMapper">
     <!--namespace : 名称空间：与id组成sql的唯一标识
         resultType： 表明返回值类型-->
+    <cache></cache>
 
     <!--抽取sql片段-->
     <sql id="selectUser">
