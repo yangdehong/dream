@@ -23,7 +23,7 @@ UNKNOWN, INSERT, UPDATE, DELETE, SELECT;
 3、在getMapper的时候，要先通过通过sqlTypeEnum判断sql的类型
 4、将生产PreparedStatement的代码放到ParamsHandler中
 5、在SqlSession中新增CRUD的api，在Executor和实现类中补充CRUD的业务操作代码
-6、新增的一个Date类型的参数，所以需要新增类型装换，就使用新增的ResultHandler来处理
+6、新增的一个Date类型的参数，所以需要新增类型装换，就使用新增的ResultHandler来处理，简单些类型转换类，不做TypeHandler处理
 
 ## mybatis
 mybatis学习

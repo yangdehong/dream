@@ -4,6 +4,9 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,14 +41,16 @@ public class SimpleResultHandler implements ResultHandler {
         return (List<E>) objects;
     }
 
-    public Object transformType(Method writeMethod, Object value) {
+    public Object transformType(Method writeMethod, Object value) throws Exception {
         Class<?>[] parameterTypes = writeMethod.getParameterTypes();
         // 只去判断单个参数的
         if (parameterTypes.length == 1) {
             Class<?> parameterType = parameterTypes[0];
             String canonicalName = parameterType.getCanonicalName();
-            if ("java.util.Date".equals(canonicalName)) {
-                return null;
+            if ("java.util.Date".equals(canonicalName) && value != null) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+                Date date = simpleDateFormat.parse(value.toString());
+                return date;
             }
         } else {
             // TDOO 不浪费时间写多个的
