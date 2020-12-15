@@ -3,7 +3,7 @@ package com.ydh.redsheep.self_spring.utils;
 import com.alibaba.druid.pool.DruidDataSource;
 
 /**
- * @author 应癫
+ * @author yangdehong
  */
 public class DruidUtils {
 

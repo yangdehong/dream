@@ -3,7 +3,7 @@ package com.ydh.redsheep.self_spring.dao;
 import com.ydh.redsheep.self_spring.pojo.Account;
 
 /**
- * @author 应癫
+ * @author yangdehong
  */
 public interface AccountDao {
 

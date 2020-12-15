@@ -3,7 +3,7 @@ package com.ydh.redsheep.springxml.utils;
 import java.sql.SQLException;
 
 /**
- * @author 应癫
+ * @author yangdehong
  *
  * 事务管理器类：负责手动事务的开启、提交、回滚
  */

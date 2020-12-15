@@ -6,7 +6,7 @@ import com.ydh.redsheep.springxml.pojo.Account;
 import com.ydh.redsheep.springxml.service.TransferService;
 
 /**
- * @author 应癫
+ * @author yangdehong
  */
 public class TransferServiceImpl implements TransferService {
 

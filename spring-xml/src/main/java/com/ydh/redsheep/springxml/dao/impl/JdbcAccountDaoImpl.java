@@ -13,7 +13,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * @author 应癫
+ * @author yangdehong
  */
 public class JdbcAccountDaoImpl implements AccountDao {
 

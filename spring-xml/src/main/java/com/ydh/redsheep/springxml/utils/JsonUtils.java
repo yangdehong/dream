@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * JSON工具类（使用的是jackson实现的）
- * @author 应癫
+ * @author yangdehong
  */
 public class JsonUtils {
 

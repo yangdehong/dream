@@ -4,7 +4,7 @@ package com.ydh.redsheep.springxml.dao;
 import com.ydh.redsheep.springxml.pojo.Account;
 
 /**
- * @author 应癫
+ * @author yangdehong
  */
 public interface AccountDao {
 
