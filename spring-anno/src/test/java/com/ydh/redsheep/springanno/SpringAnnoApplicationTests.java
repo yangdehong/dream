@@ -1,13 +1,18 @@
 package com.ydh.redsheep.springanno;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SpringAnnoApplicationTests {
+import com.ydh.redsheep.springanno.config.SpringConfig;
+import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class SpringAnnoApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void test() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+        Object accountDao = applicationContext.getBean("accountDao");
+        System.out.println(accountDao);
     }
 
 }
