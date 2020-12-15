@@ -29,7 +29,7 @@
     <!--
         lazy-init：延迟加载，true代表延迟，false代表立即加载，默认是false
     -->
-<!--    <bean id="lazyResult" class="com.ydh.redsheep.springxmlanno.pojo.Result" init-method="initMethod"/>-->
+    <bean id="lazyResult" class="com.ydh.redsheep.springxmlanno.pojo.Result" init-method="initMethod"/>
 
 
 

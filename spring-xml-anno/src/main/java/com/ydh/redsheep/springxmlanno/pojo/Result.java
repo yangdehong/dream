@@ -63,11 +63,11 @@ public class Result
 //    public void afterPropertiesSet() throws Exception {
 //        System.out.println("afterPropertiesSet......");
 //    }
-//
-//
-//    public void initMethod() {
-//        System.out.println("init-method....");
-//    }
+
+
+    public void initMethod() {
+        System.out.println("init-method....");
+    }
 //
 //    @PostConstruct
 //    public void postCoustrcut() {
