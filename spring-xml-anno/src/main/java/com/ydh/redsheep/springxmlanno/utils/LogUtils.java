@@ -71,7 +71,7 @@ public class LogUtils {
         Object result = null;
         try{
             // 控制原有业务逻辑是否执行
-            // result = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
+             result = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
         }catch(Exception e) {
             System.out.println("环绕通知中的exceptionmethod....");
         }finally {
