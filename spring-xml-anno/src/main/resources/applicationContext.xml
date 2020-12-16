@@ -29,48 +29,39 @@
     <!--
         lazy-init：延迟加载，true代表延迟，false代表立即加载，默认是false
     -->
-    <bean id="lazyResult" class="com.ydh.redsheep.springxmlanno.pojo.Result" init-method="initMethod"/>
+<!--    <bean id="lazyResult" class="com.ydh.redsheep.springxmlanno.pojo.Result" init-method="initMethod"/>-->
 
 
 
 
     <!--进行aop相关的xml配置,配置aop的过程其实就是把aop相关术语落地-->
     <!--横切逻辑bean-->
-    <!--<bean id="logUtils" class="com.lagou.edu.utils.LogUtils"></bean>
-    &lt;!&ndash;使用config标签表明开始aop配置,在内部配置切面aspect&ndash;&gt;
+    <bean id="logUtils" class="com.ydh.redsheep.springxmlanno.utils.LogUtils"></bean>
+    <!--使用config标签表明开始aop配置,在内部配置切面aspect
+    aspect   =    切入点（锁定方法） + 方位点（锁定方法中的特殊时机）+ 横切逻辑 -->
+<!--    <aop:config>-->
+<!--        <aop:aspect id="logAspect" ref="logUtils">-->
 
-    &lt;!&ndash;aspect   =    切入点（锁定方法） + 方位点（锁定方法中的特殊时机）+ 横切逻辑 &ndash;&gt;
-    <aop:config>
-        <aop:aspect id="logAspect" ref="logUtils">
+<!--&lt;!&ndash;            切入点锁定我们感兴趣的方法，使用aspectj语法表达式&ndash;&gt;-->
+<!--            <aop:pointcut id="pt1" expression="execution(* *..*.*(..))"/>-->
+<!--            <aop:pointcut id="pt1" expression="execution(* com.ydh.redsheep.springxmlanno.impl.TransferServiceImpl.*(..))"/>-->
+<!--&lt;!&ndash;            方位信息,pointcut-ref关联切入点&ndash;&gt;-->
+<!--&lt;!&ndash;            aop:before前置通知/增强&ndash;&gt;-->
+<!--            <aop:before method="beforeMethod" pointcut-ref="pt1"/>-->
+<!--&lt;!&ndash;            aop:after，最终通知，无论如何都执行&ndash;&gt;-->
+<!--&lt;!&ndash;            aop:after-returnning，正常执行通知&ndash;&gt;-->
+<!--            <aop:after-returning method="successMethod" returning="retValue"/>-->
+<!--&lt;!&ndash;            aop:after-throwing，异常通知&ndash;&gt;-->
 
-            &lt;!&ndash;切入点锁定我们感兴趣的方法，使用aspectj语法表达式&ndash;&gt;
-            &lt;!&ndash;<aop:pointcut id="pt1" expression="execution(* *..*.*(..))"/>&ndash;&gt;
-            <aop:pointcut id="pt1" expression="execution(* com.lagou.edu.service.impl.TransferServiceImpl.*(..))"/>
+<!--            <aop:around method="arroundMethod" pointcut-ref="pt1"/>-->
 
-
-            &lt;!&ndash;方位信息,pointcut-ref关联切入点&ndash;&gt;
-            &lt;!&ndash;aop:before前置通知/增强&ndash;&gt;
-            <aop:before method="beforeMethod" pointcut-ref="pt1"/>
-            &lt;!&ndash;aop:after，最终通知，无论如何都执行&ndash;&gt;
-            &lt;!&ndash;aop:after-returnning，正常执行通知&ndash;&gt;
-            <aop:after-returning method="successMethod" returning="retValue"/>
-            &lt;!&ndash;aop:after-throwing，异常通知&ndash;&gt;
-
-            <aop:around method="arroundMethod" pointcut-ref="pt1"/>
-
-        </aop:aspect>
-    </aop:config>-->
-
-
-
-
+<!--        </aop:aspect>-->
+<!--    </aop:config>-->
 
     <!--开启aop注解驱动
         proxy-target-class:true强制使用cglib
 
     -->
-<!--    <aop:aspectj-autoproxy/>-->
-
-
+    <aop:aspectj-autoproxy/>
 
 </beans>

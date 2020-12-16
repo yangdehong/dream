@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class LogUtils {
 
 
-    @Pointcut("execution(* com.lagou.edu.service.impl.TransferServiceImpl.*(..))")
+    @Pointcut("execution(* com.ydh.redsheep.springxmlanno.service.impl.TransferServiceImpl.*(..))")
     public void pt1(){
 
     }
@@ -64,7 +64,7 @@ public class LogUtils {
      * 环绕通知
      *
      */
-    /*@Around("pt1()")*/
+    @Around("pt1()")
     public Object arroundMethod(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         System.out.println("环绕通知中的beforemethod....");
 
