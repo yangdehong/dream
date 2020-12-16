@@ -7,7 +7,7 @@ import org.springframework.context.annotation.*;
 import javax.sql.DataSource;
 
 /**
- * @author 应癫
+ * @author yangdehong
  */
 
 // @Configuration 注解表明当前类是一个配置类
