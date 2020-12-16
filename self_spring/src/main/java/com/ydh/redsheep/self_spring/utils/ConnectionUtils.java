@@ -1,11 +1,14 @@
 package com.ydh.redsheep.self_spring.utils;
 
+import com.ydh.redsheep.self_spring.anno.MyComponent;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
  * @author yangdehong
  */
+@MyComponent
 public class ConnectionUtils {
 
     /*private ConnectionUtils() {

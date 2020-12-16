@@ -1,5 +1,8 @@
 package com.ydh.redsheep.self_spring.utils;
 
+import com.ydh.redsheep.self_spring.anno.MyAutowired;
+import com.ydh.redsheep.self_spring.anno.MyComponent;
+
 import java.sql.SQLException;
 
 /**
@@ -7,24 +10,15 @@ import java.sql.SQLException;
  *
  * 事务管理器类：负责手动事务的开启、提交、回滚
  */
+@MyComponent
 public class TransactionManager {
 
+    @MyAutowired
     private ConnectionUtils connectionUtils;
 
-    public void setConnectionUtils(ConnectionUtils connectionUtils) {
-        this.connectionUtils = connectionUtils;
-    }
-
-    /*private TransactionManager(){
-
-    }
-
-    private static TransactionManager transactionManager = new TransactionManager();
-
-    public static TransactionManager getInstance() {
-        return  transactionManager;
-    }*/
-
+//    public void setConnectionUtils(ConnectionUtils connectionUtils) {
+//        this.connectionUtils = connectionUtils;
+//    }
 
 
     // 开启手动事务控制

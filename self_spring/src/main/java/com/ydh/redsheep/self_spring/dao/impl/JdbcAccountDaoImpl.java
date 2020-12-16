@@ -1,5 +1,7 @@
 package com.ydh.redsheep.self_spring.dao.impl;
 
+import com.ydh.redsheep.self_spring.anno.MyAutowired;
+import com.ydh.redsheep.self_spring.anno.MyRepository;
 import com.ydh.redsheep.self_spring.dao.AccountDao;
 import com.ydh.redsheep.self_spring.pojo.Account;
 import com.ydh.redsheep.self_spring.utils.ConnectionUtils;
@@ -11,13 +13,15 @@ import java.sql.ResultSet;
 /**
  * @author yangdehong
  */
+@MyRepository("accountDao")
 public class JdbcAccountDaoImpl implements AccountDao {
 
+    @MyAutowired
     private ConnectionUtils connectionUtils;
 
-    public void setConnectionUtils(ConnectionUtils connectionUtils) {
-        this.connectionUtils = connectionUtils;
-    }
+//    public void setConnectionUtils(ConnectionUtils connectionUtils) {
+//        this.connectionUtils = connectionUtils;
+//    }
 
 
     public void init() {

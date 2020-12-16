@@ -1,8 +1,5 @@
-# dream
-
-## self_mybatis
-自定义mybatis框架
-
+# 作业
+## mybatis
 ### 题目
 一、编程题
 请完善自定义持久层框架IPersistence，在现有代码基础上添加、修改及删除功能。【需要采用getMapper方式】
@@ -10,7 +7,6 @@
 1、提供资料：代码工程、验证及讲解视频。
 2、讲解内容包含：题目分析、实现思路、代码讲解。
 3、效果视频验证
-
 ### 说明
 注意：这里不注重缓存、扩展、动态sql等，也不做异常捕获，只有一个主要流程，也就是使用getMapper方式的方式处理CRUD就可以。
 补充接口ResultHandler和实现类SimpleResultHandler用来处理结果（TypeHandler不单独做了，直接在这里面）；接口ParamsHandler和SimpleParamsHandler用来处理参数；
@@ -24,7 +20,36 @@ UNKNOWN, INSERT, UPDATE, DELETE, SELECT;
 4、将生产PreparedStatement的代码放到ParamsHandler中
 5、在SqlSession中新增CRUD的api，在Executor和实现类中补充CRUD的业务操作代码
 6、新增的一个Date类型的参数，所以需要新增类型装换，就使用新增的ResultHandler来处理，简单些类型转换类，不做TypeHandler处理
+### 代码模块
+self_mybatis
 
-## mybatis
-mybatis学习
+## spring
+### 题目
+一、编程题
+学员自定义@Service、@Autowired、@Transactional注解类，完成基于注解的IOC容器（Bean对象创建及依赖注入维护）和声明式事务控制，
+写到转账工程中，并且可以实现转账成功和转账异常时事务回滚
+注意考虑以下情况：
+1）注解有无value属性值【@service（value=""） @Repository（value=""）】
+2）service层是否实现接口的情况【jdk还是cglib】
+二、作业资料说明：
+1、提供资料：代码工程、验证及讲解视频、SQL脚本。
+2、讲解内容包含：题目分析、实现思路、代码讲解。
+3、效果视频验证
+1）实现转账成功和转账异常时事务回滚。
+2）展示和讲解自定义@Service、@Autowired、@Transactional注解类。
+### 说明
+分三步
+1、使用注解将有bean对象加载到map缓存中，
+1.1、定义出@MyComponent、@MyRepository、@MyService三个生成bean的注解
+1.2、扫描启动类（SelfSpringApplication）的包以及子包，将有注解的类加载到map中（BeanFactory中）
+2、使用注解将对象属性依赖注入到bean中
+2.1、定义出@MyAutowired注入属性的注解
+2.2、将1.2扫描出来的bean（如果没有扫描出来，是无法使用注解注入属性的），设置@MyAutowired注入的属性（BeanFactory中）
+3、使用注解做出声明式的事务
+3.1、定义出@MyTransactional作为事务的注解
+3.2、在动态代理中直接获取注解，看是否存在，不存在则直接执行invoke
+3.3、根据接口判断，这个是在1.2加入map的时候实例化判断是否存在@MyTransactional，如果存在就实例化动态代理对象，再根据是否有接口判断jdk还是cglib
+由于我这里是springboot的测试类，这里不好处理，就不多写了
 
+### 代码
+self_spring  -->  ControllerTests

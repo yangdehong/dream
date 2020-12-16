@@ -1,5 +1,8 @@
 package com.ydh.redsheep.self_spring.factory;
 
+import com.ydh.redsheep.self_spring.anno.MyAutowired;
+import com.ydh.redsheep.self_spring.anno.MyComponent;
+import com.ydh.redsheep.self_spring.anno.MyTransactional;
 import com.ydh.redsheep.self_spring.utils.TransactionManager;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -15,27 +18,15 @@ import java.lang.reflect.Proxy;
  *
  * 代理对象工厂：生成代理对象的
  */
-
+@MyComponent
 public class ProxyFactory {
 
-
+    @MyAutowired
     private TransactionManager transactionManager;
 
-    public void setTransactionManager(TransactionManager transactionManager) {
-        this.transactionManager = transactionManager;
-    }
-
-    /*private ProxyFactory(){
-
-    }
-
-    private static ProxyFactory proxyFactory = new ProxyFactory();
-
-    public static ProxyFactory getInstance() {
-        return proxyFactory;
-    }*/
-
-
+//    public void setTransactionManager(TransactionManager transactionManager) {
+//        this.transactionManager = transactionManager;
+//    }
 
     /**
      * Jdk动态代理
@@ -49,22 +40,38 @@ public class ProxyFactory {
                 new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        boolean flag = false;
+                        // 事务
+                        MyTransactional txAnnotation = obj.getClass().getAnnotation(MyTransactional.class);
+                        if (txAnnotation != null) {
+                            // 类上面加的事务
+                            flag = true;
+                        } else {
+                            // 方法上面加事务
+                            method.setAccessible(true);
+                            MyTransactional annotation = method.getAnnotation(MyTransactional.class);
+                            if (annotation != null) {
+                                flag = true;
+                            }
+                        }
+
                         Object result = null;
+
+                        // 没有事务，直接提交
+                        if (!flag) {
+                            return method.invoke(obj,args);
+                        }
 
                         try{
                             // 开启事务(关闭事务的自动提交)
                             transactionManager.beginTransaction();
-
                             result = method.invoke(obj,args);
-
                             // 提交事务
-
                             transactionManager.commit();
                         }catch (Exception e) {
                             e.printStackTrace();
                             // 回滚事务
                             transactionManager.rollback();
-
                             // 抛出异常便于上层servlet捕获
                             throw e;
 
@@ -86,7 +93,29 @@ public class ProxyFactory {
         return  Enhancer.create(obj.getClass(), new MethodInterceptor() {
             @Override
             public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
+
+                boolean flag = false;
+                // 事务
+                MyTransactional txAnnotation = obj.getClass().getAnnotation(MyTransactional.class);
+                if (txAnnotation != null) {
+                    // 类上面加的事务
+                    flag = true;
+                } else {
+                    // 方法上面加事务
+                    method.setAccessible(true);
+                    MyTransactional annotation = method.getAnnotation(MyTransactional.class);
+                    if (annotation != null) {
+                        flag = true;
+                    }
+                }
+
                 Object result = null;
+
+                // 没有事务，直接提交
+                if (!flag) {
+                    return method.invoke(obj,objects);
+                }
+
                 try{
                     // 开启事务(关闭事务的自动提交)
                     transactionManager.beginTransaction();
