@@ -59,7 +59,7 @@
 
     <mvc:interceptors>
         <!--拦截所有handler-->
-        <!--<bean class="com.lagou.edu.interceptor.MyIntercepter01"/>-->
+        <!--<bean class="com.ydh.redsheep.springssm.interceptor.MyIntercepter01"/>-->
         
         <mvc:interceptor>
             <!--配置当前拦截器的url拦截规则，**代表当前目录下及其子目录下的所有url-->

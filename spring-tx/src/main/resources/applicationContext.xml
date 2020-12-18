@@ -53,7 +53,7 @@
 
     <aop:config>
         &lt;!&ndash;advice-ref指向增强=横切逻辑+方位&ndash;&gt;
-        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.lagou.edu.service.impl.TransferServiceImpl.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.ydh.redsheep.springssm.service.impl.TransferServiceImpl.*(..))"/>
     </aop:config>-->
 
     <!--声明式事务的注解驱动-->

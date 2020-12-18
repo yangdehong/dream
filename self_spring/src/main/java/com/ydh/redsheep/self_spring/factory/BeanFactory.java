@@ -96,7 +96,7 @@ public class BeanFactory {
 //                Element element =  beanList.get(i);
 //                // 处理每个bean元素，获取到该元素的id 和 class 属性
 //                String id = element.attributeValue("id");        // accountDao
-//                String clazz = element.attributeValue("class");  // com.lagou.edu.dao.impl.JdbcAccountDaoImpl
+//                String clazz = element.attributeValue("class");  // com.ydh.redsheep.springssm.dao.impl.JdbcAccountDaoImpl
 //                // 通过反射技术实例化对象
 //                Class<?> aClass = Class.forName(clazz);
 //                Object o = aClass.newInstance();  // 实例化之后的对象

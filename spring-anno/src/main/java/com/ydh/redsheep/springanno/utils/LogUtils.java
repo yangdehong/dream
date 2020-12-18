@@ -16,7 +16,7 @@
 //public class LogUtils {
 //
 //
-//    @Pointcut("execution(* com.lagou.edu.service.impl.TransferServiceImpl.*(..))")
+//    @Pointcut("execution(* com.ydh.redsheep.springssm.service.impl.TransferServiceImpl.*(..))")
 //    public void pt1(){
 //
 //    }

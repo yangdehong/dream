@@ -53,7 +53,7 @@ public class DemoController  {
      * url: http://localhost:8080/demo/handle01
      */
     @RequestMapping("/handle01")
-    public ModelAndView handle01(@ModelAttribute("name") String name) {
+    public ModelAndView handle01(String name, Map<String, String> map) {
 
 //        int c = 1/0;
 
