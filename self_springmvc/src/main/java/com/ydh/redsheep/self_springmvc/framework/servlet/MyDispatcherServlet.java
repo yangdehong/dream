@@ -1,10 +1,10 @@
 package com.ydh.redsheep.self_springmvc.framework.servlet;
 
-import com.ydh.redsheep.self_springmvc.framework.annotations.MyAutowired;
-import com.ydh.redsheep.self_springmvc.framework.annotations.MyController;
-import com.ydh.redsheep.self_springmvc.framework.annotations.MyRequestMapping;
-import com.ydh.redsheep.self_springmvc.framework.annotations.MyService;
+import com.ydh.redsheep.self_springmvc.framework.annotations.*;
+import com.ydh.redsheep.self_springmvc.interceptor.SecurityInterceptor;
+import com.ydh.redsheep.self_springmvc.interceptor.YdhInterceptor;
 import com.ydh.redsheep.self_springmvc.pojo.Handler;
+import com.ydh.redsheep.self_springmvc.pojo.InterceptorHandler;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletConfig;
@@ -25,14 +25,14 @@ import java.util.regex.Pattern;
 
 public class MyDispatcherServlet extends HttpServlet {
 
-
     private Properties properties = new Properties();
 
     private List<String> classNames = new ArrayList<>(); // 缓存扫描到的类的全限定类名
 
     // ioc容器
     private Map<String, Object> ioc = new HashMap<>();
-
+    // 拦截器
+    private Map<Pattern, Object> interceptors = new HashMap<>();
 
     // handlerMapping
     //private Map<String,Method> handlerMapping = now HashMap<>(); // 存储url和Method之间的映射关系
@@ -51,8 +51,17 @@ public class MyDispatcherServlet extends HttpServlet {
         doAutoWired();
         // 5 构造一个HandlerMapping处理器映射器，将配置好的url和Method建立映射关系
         initHandlerMapping();
+        // 初始化拦截器
+        initInterceptor();
         System.out.println(" mvc 初始化完成....");
         // 等待请求进入，处理请求
+    }
+
+    /**
+     * 初始化拦截器类
+     */
+    private void initInterceptor() {
+        interceptors.put(Pattern.compile(".*"), new SecurityInterceptor());
     }
 
     /*
@@ -79,7 +88,7 @@ public class MyDispatcherServlet extends HttpServlet {
             Method[] methods = aClass.getMethods();
             for (int i = 0; i < methods.length; i++) {
                 Method method = methods[i];
-                //  方法没有标识MyRequestMapping，就不处理
+                // 方法没有标识MyRequestMapping，就不处理
                 if (!method.isAnnotationPresent(MyRequestMapping.class)) {
                     continue;
                 }
@@ -103,6 +112,9 @@ public class MyDispatcherServlet extends HttpServlet {
                 // 建立url和method之间的映射关系（map缓存起来）
                 handlerMapping.add(handler);
             }
+
+            // 自定义拦截器，拦截@Security
+
         }
     }
 
@@ -231,12 +243,6 @@ public class MyDispatcherServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 处理请求：根据url，找到对应的Method方法，进行调用
-        // 获取uri
-//        String requestURI = req.getRequestURI();
-//        Method method = handlerMapping.get(requestURI);// 获取到一个反射的方法
-        // 反射调用，需要传入对象，需要传入参数，此处无法完成调用，没有把对象缓存起来，也没有参数！！！！改造initHandlerMapping();
-//        method.invoke() //
 
         // 根据uri获取到能够处理当前请求的hanlder（从handlermapping中（list））
         Handler handler = getHandler(req);
@@ -244,6 +250,18 @@ public class MyDispatcherServlet extends HttpServlet {
             resp.getWriter().write("404 not found");
             return;
         }
+        // 拦截器判断
+        boolean flag = false;
+        try {
+            flag = agreeInterceptor(req, resp, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!flag) {
+            resp.getWriter().write("interceptor is error");
+            return;
+        }
+
         // 参数绑定
         // 获取所有参数类型数组，这个数组的长度就是我们最后要传入的args数组的长度
         Class<?>[] parameterTypes = handler.getMethod().getParameterTypes();
@@ -276,6 +294,25 @@ public class MyDispatcherServlet extends HttpServlet {
         }
     }
 
+    private boolean agreeInterceptor(HttpServletRequest req, HttpServletResponse resp, Handler handler) throws Exception {
+        List<Object> interceptor = getInterceptor(req);
+        InterceptorHandler interceptorHandler = new InterceptorHandler(handler.getController(), handler.getMethod());
+        Object[] objs = {req, resp, interceptorHandler};
+        for (Object o : interceptor) {
+//            Method method = o.getClass().getMethod("doInterceptor", req.getClass(), req.getClass(), interceptorHandler.getClass());
+            Method[] methods = o.getClass().getMethods();
+            for (Method method : methods) {
+                if ("doInterceptor".equals(method.getName())) {
+                    Object invoke = method.invoke(o, objs);
+                    if (Boolean.FALSE.equals(invoke)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     private Handler getHandler(HttpServletRequest req) {
         if (handlerMapping.isEmpty()) {
             return null;
@@ -289,7 +326,22 @@ public class MyDispatcherServlet extends HttpServlet {
             return handler;
         }
         return null;
+    }
 
+    private List<Object> getInterceptor(HttpServletRequest req) {
+        List<Object> list = new ArrayList<>();
+        if (interceptors.isEmpty()) {
+            return list;
+        }
+        String url = req.getRequestURI();
+        for (Pattern pattern : interceptors.keySet()) {
+            Matcher matcher = pattern.matcher(url);
+            if (matcher.matches()) {
+                Object o = interceptors.get(pattern);
+                list.add(o);
+            }
+        }
+        return list;
     }
 
 

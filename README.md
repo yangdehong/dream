@@ -50,6 +50,30 @@ self_mybatis
 3.2、在动态代理中直接获取注解，看是否存在，不存在则直接执行invoke
 3.3、根据接口判断，这个是在1.2加入map的时候实例化判断是否存在@MyTransactional，如果存在就实例化动态代理对象，再根据是否有接口判断jdk还是cglib
 由于我这里是springboot的测试类，这里不好处理，就不多写了
-
 ### 代码
 self_spring  -->  ControllerTests
+
+## springMVC
+### 题目
+一、编程题
+手写MVC框架基础上增加如下功能
+1）定义注解@Security（有value属性，接收String数组），该注解用于添加在Controller类或者Handler方法上，表明哪些用户拥有访问该Handler方法的权限（注解配置用户名）
+2）访问Handler时，用户名直接以参数名username紧跟在请求的url后面即可，比如http://localhost:8080/demo/handle01?username=zhangsan
+3）程序要进行验证，有访问权限则放行，没有访问权限在页面上输出
+注意：自己造几个用户以及url，上交作业时，文档提供哪个用户有哪个url的访问权限
+二、作业资料说明：
+1、提供资料：代码工程、验证及讲解视频。
+2、讲解内容包含：题目分析、实现思路、代码讲解。
+3、效果视频验证
+1）展示关键实现代码
+2）有访问权限则放行，没有访问权限在页面上输出
+### 说明
+就是拦截器拦截权限注解内容
+1、定义一个拦截器注解@MySecurity配置在Controller层
+2、在MyDispatcherServlet初始自定义拦截器
+2.1、定义抽象拦截器abstract class YdhInterceptor只有简单的一个拦截方法
+2.2、定义@Secerity拦截器class SecurityInterceptor extends YdhInterceptor，详细的拦截业务
+2.3、在初始化MyDispatcherServlet的时候加入到参数interceptors
+3、MyDispatcherServlet的请求处理之前处理需要拦截的请求
+### 代码
+self_springmvc ->DemoController上设置拦截名称
