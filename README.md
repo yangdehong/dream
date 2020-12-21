@@ -77,3 +77,8 @@ self_spring  -->  ControllerTests
 3、MyDispatcherServlet的请求处理之前处理需要拦截的请求
 ### 代码
 self_springmvc ->DemoController上设置拦截名称
+
+## springboot
+### 代码
+self_springboot    http://localhost/index
+

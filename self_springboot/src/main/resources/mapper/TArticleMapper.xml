@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ydh.redsheep.self_springboot.mapper.TArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.ydh.redsheep.self_springboot.pojo.TArticlePO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="created" jdbcType="VARCHAR" property="created"/>
+        <result column="modified" jdbcType="VARCHAR" property="modified"/>
+        <result column="categories" jdbcType="VARCHAR" property="categories"/>
+        <result column="tags" jdbcType="VARCHAR" property="tags"/>
+        <result column="allow_comment" jdbcType="TINYINT" property="allowComment"/>
+        <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail"/>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,created,modified,categories,tags,allow_comment,thumbnail
+    </sql>
+
+
+</mapper>
