@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ydh.redsheep.ydhspringbootstarter.config.MyAutoConfiguration

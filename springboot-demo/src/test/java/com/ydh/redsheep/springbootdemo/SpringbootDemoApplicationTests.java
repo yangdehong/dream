@@ -4,6 +4,7 @@ import com.ydh.redsheep.springbootdemo.controller.HelloController;
 import com.ydh.redsheep.springbootdemo.pojo.MyProperties;
 import com.ydh.redsheep.springbootdemo.pojo.Person;
 import com.ydh.redsheep.springbootdemo.pojo.Student;
+import com.ydh.redsheep.ydhspringbootstarter.config.SimpleBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,14 +94,14 @@ class SpringbootDemoApplicationTests {
     /*
      测试随机数及参数间引用
     */
-//    @Autowired
-//    private SimpleBean simpleBean;
-//
-//
-//    @Test
-//    void zdyStarterTest(){
-//        System.out.println(simpleBean);
-//    }
+    @Autowired
+    private SimpleBean simpleBean;
+
+
+    @Test
+    void zdyStarterTest(){
+        System.out.println(simpleBean);
+    }
 
 
 
