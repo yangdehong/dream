@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app>
+    <servlet>
+        <servlet-name>ydh</servlet-name>
+        <servlet-class>com.ydh.redsheep.self_tomcat.servlet.YdhServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ydh</servlet-name>
+        <url-pattern>/ydh</url-pattern>
+    </servlet-mapping>
+</web-app>
