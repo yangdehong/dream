@@ -93,8 +93,10 @@ https://gitee.com/lagouedu/alltestfile/raw/master/tomcat/Tomcat%E4%BD%9C%E4%B8%9
 2、讲解内容包含：题目分析、实现思路、代码讲解。
 3、效果视频验证：实现模拟tomcat多项目部署效果，访问多个不同项目可获得动态返回的内容。
 ### 说明
-1、要定义mapper，mapper是数据service层的对象
-2、有子项目demo，需要解析子项目的web.xml
+1、要定义Mapper，包含解析出来的数据
+2、有子项目demo，需要解析子项目的web.xml，self_tomcat就不需要解析了
+3、路径地址修改，需要注意
+4、子目录的servlet的url必须和self_tomcat相同
 ### 代码
 self_tomcat
 
