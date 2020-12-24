@@ -1,4 +1,4 @@
-package com.ydh.redsheep.self_tomcat.util;
+package server;
 
 /**
  * http协议工具类，主要是提供响应头信息，这里我们只提供200和404的情况

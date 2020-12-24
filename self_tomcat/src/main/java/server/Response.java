@@ -1,7 +1,4 @@
-package com.ydh.redsheep.self_tomcat.server;
-
-import com.ydh.redsheep.self_tomcat.util.HttpProtocolUtil;
-import com.ydh.redsheep.self_tomcat.util.StaticResourceUtil;
+package server;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,9 +36,9 @@ public class Response {
      */
     public void outputHtml(String path) throws IOException {
         // 获取静态资源文件的绝对路径
-        String absoluteResourcePath = StaticResourceUtil.getAbsolutePath(path);
+//        String absoluteResourcePath = StaticResourceUtil.getAbsolutePath(path);
         // 输入静态资源文件
-        File file = new File(absoluteResourcePath);
+        File file = new File(path);
         if(file.exists() && file.isFile()) {
             // 读取静态资源文件，输出静态资源
             StaticResourceUtil.outputStaticResource(new FileInputStream(file),outputStream);

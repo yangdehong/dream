@@ -1,9 +1,4 @@
-package com.ydh.redsheep.self_tomcat.servlet;
-
-import com.ydh.redsheep.self_tomcat.server.Request;
-import com.ydh.redsheep.self_tomcat.server.Response;
-import com.ydh.redsheep.self_tomcat.servlet.commom.HttpServlet;
-import com.ydh.redsheep.self_tomcat.util.HttpProtocolUtil;
+package server;
 
 import java.io.IOException;
 

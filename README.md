@@ -82,3 +82,20 @@ self_springmvc ->DemoController上设置拦截名称
 ### 代码
 self_springboot    http://localhost/index
 
+## tomcat
+### 题目
+一、编程题
+开发Minicat V4.0，在已有Minicat基础上进一步扩展，模拟出webapps部署效果 磁盘上放置一个webapps目录，webapps中可以有多个项目，例如demo1、demo2、demo3... 每个项目中含有servlet，可以根据请求url定位对应servlet进一步处理。
+作业具体要求参考以下链接文档：
+https://gitee.com/lagouedu/alltestfile/raw/master/tomcat/Tomcat%E4%BD%9C%E4%B8%9A%E5%A4%A7%E9%A2%98.pdf
+作业资料说明：
+1、提供资料：工程代码和自己的webapps以及访问路径、功能演示和原理讲解视频。
+2、讲解内容包含：题目分析、实现思路、代码讲解。
+3、效果视频验证：实现模拟tomcat多项目部署效果，访问多个不同项目可获得动态返回的内容。
+### 说明
+1、要定义mapper，mapper是数据service层的对象
+2、有子项目demo，需要解析子项目的web.xml
+### 代码
+self_tomcat
+
+

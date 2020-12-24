@@ -1,7 +1,4 @@
-package com.ydh.redsheep.self_tomcat.servlet.commom;
-
-import com.ydh.redsheep.self_tomcat.server.Request;
-import com.ydh.redsheep.self_tomcat.server.Response;
+package server;
 
 public interface Servlet {
 

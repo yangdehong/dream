@@ -1,7 +1,8 @@
-package com.ydh.redsheep.self_tomcat.server;
+package server;
 
-import com.ydh.redsheep.self_tomcat.servlet.commom.HttpServlet;
+import server.pojo.Mapper;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.Socket;
 import java.util.Map;
@@ -10,10 +11,12 @@ public class RequestProcessor extends Thread {
 
     private Socket socket;
     private Map<String, HttpServlet> servletMap;
+    private Mapper mapper;
 
-    public RequestProcessor(Socket socket, Map<String, HttpServlet> servletMap) {
+    public RequestProcessor(Socket socket, Map<String, HttpServlet> servletMap, Mapper mapper) {
         this.socket = socket;
         this.servletMap = servletMap;
+        this.mapper = mapper;
     }
 
     @Override
@@ -26,11 +29,14 @@ public class RequestProcessor extends Thread {
             Response response = new Response(socket.getOutputStream());
 
             // 静态资源处理
-            if (servletMap.get(request.getUrl()) == null) {
-                response.outputHtml(request.getUrl());
+            String url = request.getUrl();
+            if (servletMap.get(url) == null) {
+                String[] split = url.split(File.separator);
+                String path = mapper.getUrl2AppBase().get(split[1]);
+                response.outputHtml(path+request.getUrl());
             } else {
                 // 动态资源servlet请求
-                HttpServlet httpServlet = servletMap.get(request.getUrl());
+                HttpServlet httpServlet = servletMap.get(url);
                 httpServlet.service(request, response);
             }
 
